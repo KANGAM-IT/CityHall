@@ -12,6 +12,7 @@ import com.vlm.cityhall.Service.UserService;
 import com.vlm.cityhall.constents.CityHallConstants;
 import com.vlm.cityhall.utils.CityHallUtils;
 
+
 @RestController
 public class UserRestImpl implements UserRest {
 	
@@ -27,6 +28,18 @@ public class UserRestImpl implements UserRest {
 		}
 		return CityHallUtils.getResponseEntity(CityHallConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
 	
+	}
+	
+	
+
+	@Override
+	public ResponseEntity<String> login(Map<String, String> requestMap) {
+		try {
+			return userService.login(requestMap);
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return CityHallUtils.getResponseEntity(CityHallConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 }

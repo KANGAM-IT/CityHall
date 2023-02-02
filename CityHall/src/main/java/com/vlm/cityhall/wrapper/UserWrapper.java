@@ -1,7 +1,5 @@
 package com.vlm.cityhall.wrapper;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +25,8 @@ public class UserWrapper {
 	private String password;
 	
 	private String role;
+	
+	private String status;
 
 	
 

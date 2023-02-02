@@ -2,7 +2,7 @@ package com.vlm.cityhall.ENTITY;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -63,6 +63,9 @@ public class User implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_fk", nullable = false)
 	private Collection<Role> roles;
+	
+	@Column(name = "status")
+	private String status;
 
 	@Column(name = "role")
 	private String role;

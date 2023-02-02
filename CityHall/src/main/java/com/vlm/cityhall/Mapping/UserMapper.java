@@ -18,6 +18,7 @@ public class UserMapper {
 		user.setFirstName(userWrapper.getFirstName());
 		user.setLastName(userWrapper.getLastName());
 		user.setPassword(userWrapper.getPassword());
+		user.setStatus(userWrapper.getStatus());
 		user.setRole(userWrapper.getRole());
 		return user;
 	}
@@ -31,7 +32,7 @@ public class UserMapper {
 		userWrapper.setFirstName(user.getFirstName());
 		userWrapper.setLastName(user.getLastName());
 		userWrapper.setPassword(user.getPassword());
-		userWrapper.setRole(user.getRole());
+		userWrapper.setStatus(user.getStatus());
 		return userWrapper;
 	}
 
