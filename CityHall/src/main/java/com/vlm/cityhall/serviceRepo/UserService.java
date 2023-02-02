@@ -1,10 +1,16 @@
 package com.vlm.cityhall.serviceRepo;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
-public interface UserService {
+import com.vlm.cityhall.wrapper.UserWrapper;
 
-	public ResponseEntity<String> signUp(Map<String, String> requestMap);
+public interface UserService {
+	UserWrapper saveUser(UserWrapper userWrapper);
+	UserWrapper getUser(int id);
+	List<UserWrapper> listOfUserWrappers();
+	UserWrapper updateUser(int id, UserWrapper userWrapper);
+	void deleteUser(int id);
 }

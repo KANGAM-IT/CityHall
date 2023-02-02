@@ -6,4 +6,5 @@ import com.vlm.cityhall.ENTITY.User;
 
 @Entity
 public class Woman extends User {
+	
 }

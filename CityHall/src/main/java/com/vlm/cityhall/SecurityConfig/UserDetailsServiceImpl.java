@@ -15,7 +15,6 @@ import com.vlm.cityhall.DAO.UserDao;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 	
 	@Autowired
@@ -25,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		log.info("Indide loadUserByUsername {}", username);
+		
 		userDetail = userDao.findByEmailId(username);
 		if(!Objects.isNull(userDetail))
 			return new User(userDetail.getEmail(), userDetail.getPassword(), new ArrayList<>());

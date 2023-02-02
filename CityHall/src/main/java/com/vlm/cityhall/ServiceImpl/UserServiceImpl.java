@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.vlm.cityhall.DAO.UserDao;
@@ -24,7 +22,6 @@ import com.vlm.cityhall.utils.CityHallUtils;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
@@ -45,8 +42,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ResponseEntity<String> signUp(Map<String, String> requestMap) {
-		
-		log.info("Inside signup {}", requestMap);
 		try {
 		if(validateSignUpMap(requestMap)){
 			User user = userDao.findByEmailId(requestMap.get("email"));
@@ -87,35 +82,8 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(requestMap.get("password"));
 		user.setBirthDay(LocalDate.parse(requestMap.get("birthDay")) );
 		user.setBirthPlace(requestMap.get("birthPlace"));
-		user.setStatus("false");
-		user.setRole("user");
+		user.setRole("Admin");
 		return user;
-	}
-
-	@Override
-	public ResponseEntity<String> login(Map<String, String> requestMap) {
-		log.info("Inside login");
-		try {
-			Authentication auth = authenticationManager.authenticate(
-							new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password"))
-					);
-			if(auth.isAuthenticated()) {
-				if(userDetailsServiceImpl.getUserDetail().getStatus().equalsIgnoreCase("true")) {
-					return new ResponseEntity<String>("{\"token\":\""+
-				jwtUtil.generateToken(userDetailsServiceImpl.getUserDetail().getEmail(),
-						userDetailsServiceImpl.getUserDetail().getRole()) + "\"}",
-					HttpStatus.OK);
-				}
-				else {
-					return new ResponseEntity<String>("{\"message\":\""+"Wait for admin approval."+"\"}",
-							HttpStatus.BAD_REQUEST);
-				}
-			}
-		}catch (Exception ex) {
-			log.error("{}", ex);
-		}
-		return new ResponseEntity<String>("{\"message\":\""+"Bad Credentials."+"\"}",
-				HttpStatus.BAD_REQUEST);
 	}
 
 }
